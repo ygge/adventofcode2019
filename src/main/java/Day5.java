@@ -1,8 +1,6 @@
-import java.io.IOException;
-
 public class Day5 {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         final IntComputer computer = new IntComputer(Util.readStrings().get(0));
 
         // part 1

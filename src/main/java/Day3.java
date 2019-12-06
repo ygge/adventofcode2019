@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -8,9 +7,8 @@ import java.util.Set;
 
 public class Day3 {
 
-    public static void main(String[] args) throws IOException {
-        List<String> wires = Util.readStrings();
-        //wires = Arrays.asList("R75,D30,R83,U83,L12,D49,R71,U7,L72", "U62,R66,U55,R34,D71,R55,D58,R83");
+    public static void main(String[] args) {
+        final List<String> wires = Util.readStrings();
 
         final Set<Pos> pos = new HashSet<>();
         mapPositions(wires.get(0), pos, true);

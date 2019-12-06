@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -8,10 +7,10 @@ import java.util.Queue;
 
 public class Day6 {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         final List<String> input = Util.readStrings();
 
-        int p1 = calcPart1(input);
+        final int p1 = calcPart1(input);
         System.out.println("part 1: " + p1);
 
         calcPart2(input);
