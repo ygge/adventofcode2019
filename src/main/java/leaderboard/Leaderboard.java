@@ -50,7 +50,30 @@ public class Leaderboard {
 
         programmers.sort((p1, p2) -> p2.score - p1.score);
         printScore(programmers, maxDays);
+        System.out.println();
+        printPosition(programmers, maxDays);
+        System.out.println();
         printTime(programmers, maxDays);
+    }
+
+    private static void printPosition(List<Programmer> programmers, int maxDays) {
+        System.out.print("Name                         ");
+        for (int day = 1; day <= maxDays; ++day) {
+            System.out.printf("  Day %2d  ", day);
+        }
+        System.out.println();
+        for (Programmer programmer : programmers) {
+            System.out.print(programmer.getName());
+            System.out.print("                             ".substring(programmer.getName().length()));
+            for (int i = 0; i < 2*maxDays; ++i) {
+                if (programmer.pointsByPart.get(i) > 0) {
+                    System.out.printf(" %3d ", programmers.size()-programmer.pointsByPart.get(i)+1);
+                } else {
+                    System.out.print("     ");
+                }
+            }
+            System.out.println();
+        }
     }
 
     private static void printTime(List<Programmer> programmers, int maxDays) {
