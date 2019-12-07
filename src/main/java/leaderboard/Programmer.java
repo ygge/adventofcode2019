@@ -15,7 +15,7 @@ class Programmer {
         this.member = member;
     }
 
-    Optional<String> getTime(String day, String part) {
+    Optional<String> getTimeString(String day, String part) {
         return Optional.ofNullable(member.completion_day_level.get(day))
                 .flatMap(partMap -> Optional.ofNullable(partMap.get(part)))
                 .map(partValue -> partValue.get_star_ts);
