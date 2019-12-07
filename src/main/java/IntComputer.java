@@ -26,10 +26,24 @@ final class IntComputer {
     }
 
     List<Integer> run(Integer... input) {
-        return run(Arrays.asList(input));
+        return run(Arrays.asList(input), true);
     }
 
     List<Integer> run(List<Integer> inputs) {
+        return run(inputs, false);
+    }
+
+    void reset() {
+        this.program = this.initialProgram.clone();
+        currentIndex = 0;
+        running = false;
+    }
+
+    boolean isRunning() {
+        return running;
+    }
+
+    private List<Integer> run(List<Integer> inputs, boolean verifyHalting) {
         final List<Integer> ret = new ArrayList<>();
         int inputIndex = 0;
         running = true;
@@ -47,6 +61,9 @@ final class IntComputer {
                 currentIndex += 4;
             } else if (code == 3) {
                 if (inputIndex == inputs.size()) {
+                    if (verifyHalting) {
+                        throw new RuntimeException("Program did not halt, expecting more input");
+                    }
                     break;
                 }
                 program[program[currentIndex+1]] = inputs.get(inputIndex++);
@@ -84,16 +101,6 @@ final class IntComputer {
             }
         }
         return ret;
-    }
-
-    void reset() {
-        this.program = this.initialProgram.clone();
-        currentIndex = 0;
-        running = false;
-    }
-
-    boolean isRunning() {
-        return running;
     }
 
     private int getValue(int[] program, int code, int index, int pos) {
