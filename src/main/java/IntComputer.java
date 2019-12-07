@@ -1,9 +1,13 @@
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 final class IntComputer {
 
     private final int[] initialProgram;
     private int[] program;
+    private int currentIndex;
+    private boolean running;
 
     IntComputer(String p) {
         this.initialProgram = Arrays.stream(p.split(","))
@@ -21,54 +25,75 @@ final class IntComputer {
         return program[index];
     }
 
-    void run(Integer... input) {
+    List<Integer> run(Integer... input) {
+        return run(Arrays.asList(input));
+    }
+
+    List<Integer> run(List<Integer> inputs) {
+        final List<Integer> ret = new ArrayList<>();
         int inputIndex = 0;
-        int index = 0;
+        running = true;
         while (true) {
-            int v = program[index];
+            int v = program[currentIndex];
             int code = v%100;
             if (code == 99) {
+                running = false;
                 break;
             } else if (code == 1) {
-                program[program[index+3]] = getValue(program, v, index, 1) + getValue(program, v, index, 2);
-                index += 4;
+                program[program[currentIndex+3]] = getValue(program, v, currentIndex, 1) + getValue(program, v, currentIndex, 2);
+                currentIndex += 4;
             } else if (code == 2) {
-                program[program[index+3]] = getValue(program, v, index, 1) * getValue(program, v, index, 2);
-                index += 4;
+                program[program[currentIndex+3]] = getValue(program, v, currentIndex, 1) * getValue(program, v, currentIndex, 2);
+                currentIndex += 4;
             } else if (code == 3) {
-                program[program[index+1]] = input[inputIndex++];
-                index += 2;
+                if (inputIndex == inputs.size()) {
+                    break;
+                }
+                program[program[currentIndex+1]] = inputs.get(inputIndex++);
+                currentIndex += 2;
             } else if (code == 4) {
-                System.out.println(getValue(program, v, index, 1));
-                index += 2;
+                int value = getValue(program, v, currentIndex, 1);
+                ret.add(value);
+                currentIndex += 2;
             } else if (code == 5) {
-                int ifValue = getValue(program, v, index, 1);
+                int ifValue = getValue(program, v, currentIndex, 1);
                 if (ifValue > 0) {
-                    index = getValue(program, v, index, 2);
+                    currentIndex = getValue(program, v, currentIndex, 2);
                 } else {
-                    index += 3;
+                    currentIndex += 3;
                 }
             } else if (code == 6) {
-                int ifValue = getValue(program, v, index, 1);
+                int ifValue = getValue(program, v, currentIndex, 1);
                 if (ifValue == 0) {
-                    index = getValue(program, v, index, 2);
+                    currentIndex = getValue(program, v, currentIndex, 2);
                 } else {
-                    index += 3;
+                    currentIndex += 3;
                 }
             } else if (code == 7) {
-                int v1 = getValue(program, v, index, 1);
-                int v2 = getValue(program, v, index, 2);
-                program[program[index+3]] = v1 < v2 ? 1 : 0;
-                index += 4;
+                int v1 = getValue(program, v, currentIndex, 1);
+                int v2 = getValue(program, v, currentIndex, 2);
+                program[program[currentIndex+3]] = v1 < v2 ? 1 : 0;
+                currentIndex += 4;
             } else if (code == 8) {
-                int v1 = getValue(program, v, index, 1);
-                int v2 = getValue(program, v, index, 2);
-                program[program[index+3]] = v1 == v2 ? 1 : 0;
-                index += 4;
+                int v1 = getValue(program, v, currentIndex, 1);
+                int v2 = getValue(program, v, currentIndex, 2);
+                program[program[currentIndex+3]] = v1 == v2 ? 1 : 0;
+                currentIndex += 4;
             } else {
                 throw new RuntimeException("Wrong code: " + code);
             }
         }
+        return ret;
+    }
+
+    void reset() {
+        this.program = this.initialProgram.clone();
+        currentIndex = 0;
+        running = false;
+    }
+
+    boolean isRunning() {
+        return running;
     }
 
     private int getValue(int[] program, int code, int index, int pos) {
@@ -83,9 +108,5 @@ final class IntComputer {
             return program[program[index+pos]];
         }
         return program[index+pos];
-    }
-
-    void reset() {
-        this.program = this.initialProgram.clone();
     }
 }
