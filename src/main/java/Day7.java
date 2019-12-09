@@ -11,26 +11,26 @@ public class Day7 {
         final IntComputer program = new IntComputer(code);
 
         final Set<Integer> seen = new HashSet<>();
-        int p1 = run(program, seen, 0, 0);
+        long p1 = run(program, seen, 0, 0);
         System.out.println("part 1: " + p1);
 
-        int p2 = runPart2(code);
+        long p2 = runPart2(code);
         System.out.println("part 2: " + p2);
     }
 
-    private static int runPart2(String code) {
+    private static long runPart2(String code) {
         final List<IntComputer> programs = new ArrayList<>();
         final int[] startValues = new int[5];
         final Set<Integer> seen = new HashSet<>();
         return run(code, programs, seen, startValues, 0);
     }
 
-    private static int run(String code, List<IntComputer> programs, Set<Integer> seen, int[] startValues, int index) {
+    private static long run(String code, List<IntComputer> programs, Set<Integer> seen, int[] startValues, int index) {
         if (index == 5) {
             for (IntComputer program : programs) {
                 program.reset();
             }
-            List<Integer> input = Collections.singletonList(0);
+            List<Long> input = Collections.singletonList(0L);
             boolean running = true;
             boolean firstRun = true;
             while (running) {
@@ -38,8 +38,8 @@ public class Day7 {
                 for (int i = 0; i < 5; ++i) {
                     final IntComputer program = programs.get(i);
                     if (firstRun) {
-                        final List<Integer> t = new ArrayList<>();
-                        t.add(startValues[i]);
+                        final List<Long> t = new ArrayList<>();
+                        t.add((long)startValues[i]);
                         t.addAll(input);
                         input = t;
                     }
@@ -52,12 +52,12 @@ public class Day7 {
             }
             return input.get(0);
         }
-        int best = Integer.MIN_VALUE;
+        long best = Integer.MIN_VALUE;
         for (int i = 5; i < 10; ++i) {
             if (seen.add(i)) {
                 programs.add(new IntComputer(code));
                 startValues[index] = i;
-                int thrust = run(code, programs, seen, startValues,index+1);
+                long thrust = run(code, programs, seen, startValues,index+1);
                 best = Math.max(best, thrust);
                 seen.remove(i);
             }
@@ -73,7 +73,7 @@ public class Day7 {
         for (int i = 0; i < 5; ++i) {
             if (seen.add(i)) {
                 program.reset();
-                int value = program.run(i, input).get(0);
+                int value = (int)(long)program.run((long)i, (long)input).get(0);
                 int thrust = run(program, seen, index+1, value);
                 best = Math.max(best, thrust);
                 seen.remove(i);
