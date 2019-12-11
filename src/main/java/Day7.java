@@ -7,7 +7,7 @@ import java.util.Set;
 public class Day7 {
 
     public static void main(String[] args) {
-        final String code = Util.readStrings().get(0);
+        final String code = Util.readString();
         final IntComputer program = new IntComputer(code);
 
         final Set<Integer> seen = new HashSet<>();

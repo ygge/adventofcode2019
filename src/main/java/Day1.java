@@ -4,8 +4,10 @@ public class Day1 {
 
     public static void main(String[] args) {
         List<Integer> masses = Util.readInts();
+
         int fuelP1 = calculateFuel(masses, false);
         System.out.println("part1: " + fuelP1);
+        
         int fuelP2 = calculateFuel(masses, true);
         System.out.println("part2: " + fuelP2);
     }

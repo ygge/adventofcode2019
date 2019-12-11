@@ -7,7 +7,7 @@ import java.util.Objects;
 public class Day11 {
 
     public static void main(String[] args) {
-        final String code = Util.readStrings().get(0);
+        final String code = Util.readString();
         final IntComputer program = new IntComputer(code);
 
         final Map<Pos, Integer> colors = new HashMap<>();

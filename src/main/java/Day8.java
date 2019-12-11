@@ -6,7 +6,7 @@ import java.util.Map;
 public class Day8 {
 
     public static void main(String[] args) {
-        String image = Util.readStrings().get(0);
+        String image = Util.readString();
 
         List<Map<Integer, Integer>> count = new ArrayList<>();
         for (int i = 0; i < image.length(); ++i) {

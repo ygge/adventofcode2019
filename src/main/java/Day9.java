@@ -3,7 +3,7 @@ import java.util.List;
 public class Day9 {
 
     public static void main(String[] args) {
-        final String code = Util.readStrings().get(0);
+        final String code = Util.readString();
 
         final IntComputer program = new IntComputer(code);
         final List<Long> p1 = program.run(1L);

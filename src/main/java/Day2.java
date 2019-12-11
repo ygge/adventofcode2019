@@ -1,7 +1,7 @@
 public class Day2 {
 
     public static void main(String[] args) {
-        final IntComputer computer = new IntComputer(Util.readStrings().get(0));
+        final IntComputer computer = new IntComputer(Util.readString());
 
         computer.set(1, 12);
         computer.set(2, 2);

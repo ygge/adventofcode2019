@@ -9,6 +9,14 @@ class Util {
 
     private Util() {}
 
+    static String readString() {
+        final List<String> strings = readStrings();
+        if (strings.size() != 1) {
+            throw new IllegalStateException(String.format("File does not contain exactly one row, got %d", strings.size()));
+        }
+        return strings.get(0);
+    }
+
     static List<String> readStrings() {
         return readFile(Function.identity());
     }
