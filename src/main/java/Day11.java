@@ -1,8 +1,10 @@
+import dim2.Direction;
+import dim2.Pos;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public class Day11 {
 
@@ -43,70 +45,6 @@ public class Day11 {
                 }
             }
             System.out.println();
-        }
-    }
-
-    private static class Pos {
-        final int x, y;
-
-        private Pos(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-
-        Pos move(Direction dir) {
-            return new Pos(x+dir.dx, y+dir.dy);
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            Pos pos = (Pos) o;
-            return x == pos.x &&
-                    y == pos.y;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(x, y);
-        }
-
-        @Override
-        public String toString() {
-            return "Pos{" +
-                    "x=" + x +
-                    ", y=" + y +
-                    '}';
-        }
-    }
-
-    private enum Direction {
-        UP(-1, 0),
-        LEFT(0, -1),
-        DOWN(1, 0),
-        RIGHT(0, 1);
-
-        private final int dy, dx;
-
-        Direction(int dy, int dx) {
-
-            this.dy = dy;
-            this.dx = dx;
-        }
-
-        Direction turn(int dir) {
-            switch(this) {
-                case UP:
-                    return dir == 0 ? LEFT : RIGHT;
-                case LEFT:
-                    return dir == 0 ? DOWN : UP;
-                case DOWN:
-                    return dir == 0 ? RIGHT : LEFT;
-                case RIGHT:
-                    return dir == 0 ? UP : DOWN;
-            }
-            throw new IllegalStateException();
         }
     }
 }

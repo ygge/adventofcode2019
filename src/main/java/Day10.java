@@ -1,3 +1,5 @@
+import dim2.Pos;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,14 +101,5 @@ public class Day10 {
 
     private static boolean onMap(boolean[][] map, int y, int x) {
         return y >= 0 && y < map.length && x >= 0 && x < map[y].length;
-    }
-
-    private static final class Pos {
-        private final int x, y;
-
-        private Pos(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
     }
 }
