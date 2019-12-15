@@ -26,4 +26,18 @@ public enum Direction {
         }
         throw new IllegalStateException();
     }
+
+    public Direction reverse() {
+        switch (this) {
+            case UP:
+                return Direction.DOWN;
+            case LEFT:
+                return Direction.RIGHT;
+            case DOWN:
+                return Direction.UP;
+            case RIGHT:
+                return Direction.LEFT;
+        }
+        throw new IllegalStateException();
+    }
 }
