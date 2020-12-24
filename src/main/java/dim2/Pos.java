@@ -14,6 +14,10 @@ public class Pos {
         return new Pos(x+dir.dx, y+dir.dy);
     }
 
+    public int dist(Pos pos) {
+        return Math.abs(x-pos.x)+Math.abs(y-pos.y);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
